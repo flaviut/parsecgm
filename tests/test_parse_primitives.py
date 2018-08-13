@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from parsecgm.parse_primitives import (
+from parsecgm.parse.parse_primitives import (
     parse_int8, parse_int16, parse_int24, parse_int32, parse_uint32,
     parse_uint8, parse_uint16, parse_uint24, parse_fixed32, parse_fixed64)
 from tests.util import ints_to_reader

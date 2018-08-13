@@ -1,7 +1,7 @@
 import pytest
 
 from parsecgm.errors import InvalidFile
-from parsecgm.parse_header import parse_command_header, CommandHeader
+from parsecgm.parse.parse_header import parse_command_header, CommandHeader
 from tests.util import ints_to_reader
 
 
