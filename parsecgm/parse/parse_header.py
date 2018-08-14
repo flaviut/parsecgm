@@ -1,9 +1,9 @@
 from attr import attrs, attrib
 
-from parsecgm.readers import Reader
+from parsecgm.parse.readers import Reader
 
 
-@attrs
+@attrs(frozen=True)
 class CommandHeader:
     el_class: int = attrib()
     el_id: int = attrib()

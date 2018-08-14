@@ -2,7 +2,7 @@ from decimal import Decimal
 from numbers import Real
 from struct import unpack
 
-from parsecgm.readers import Reader
+from parsecgm.parse.readers import Reader
 
 
 def parse_int8(reader: Reader) -> int:
@@ -55,9 +55,9 @@ def parse_fixed64(reader: Reader) -> Real:
     return Decimal(int_part) + (Decimal(dec_part) / 2 ** 32)
 
 
-def parse_float32(reader: Reader) -> int:
+def parse_float32(reader: Reader) -> Real:
     return unpack('>f', reader.next_bytes(4))[0]
 
 
-def parse_float64(reader: Reader) -> int:
+def parse_float64(reader: Reader) -> Real:
     return unpack('>d', reader.next_bytes(4))[0]

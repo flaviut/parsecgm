@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, IO
 
 from parsecgm.errors import InvalidFile
 
@@ -48,11 +48,39 @@ class BytesReader(Reader):
             self._pos += length
             return ret_bytes
         except IndexError:
-            raise InvalidFile('Expected {} bytes, found EOL'.format(length), self.pos)
+            raise InvalidFile('Expected {} bytes, found EOL'.format(length),
+                              self.pos)
 
     def next_byte(self):
         try:
             byte = self._content[self.pos]
+        except IndexError:
+            raise InvalidFile('Expected byte, found EOF', self.pos)
+        self._pos += 1
+        return byte
+
+
+class IoReader(Reader):
+    def __init__(self, stream: IO[bytes]) -> None:
+        self._stream = stream
+        self._pos = 0
+
+    @property
+    def pos(self):
+        return self._pos
+
+    def next_bytes(self, length=1) -> bytes:
+        try:
+            ret_bytes = self._stream.read(length)
+            self._pos += length
+            return ret_bytes
+        except IndexError:
+            raise InvalidFile(
+                'Expected {} bytes, found EOL'.format(length), self.pos)
+
+    def next_byte(self):
+        try:
+            byte = self._stream.read(1)[0]
         except IndexError:
             raise InvalidFile('Expected byte, found EOF', self.pos)
         self._pos += 1

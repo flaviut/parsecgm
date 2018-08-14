@@ -1,6 +1,6 @@
 from typing import List
 
-from parsecgm.readers import Reader, BytesReader
+from parsecgm.parse.readers import Reader, BytesReader
 
 
 def ints_to_reader(wordlist: List[int]) -> Reader:
